@@ -2,9 +2,11 @@ import sqlalchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-import google.auth
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+#import google.auth
+#from googleapiclient.discovery import build
+#from googleapiclient.errors import HttpError
+import gspread
+from oa
 
 
 class Base(DeclarativeBase):
@@ -24,5 +26,7 @@ class Member(Base):
 def AcquireFromDB(barcode_id) -> Member:
     pass
 
-def AddToSheet(member: Member):
-    
+def AddToSheet(member: Member, sheet: gspread.Worksheet):
+    newRow = [Member.ufid, Member.name, Member.major]
+    sheet.append_row(newRow)
+
