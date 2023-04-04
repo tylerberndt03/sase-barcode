@@ -1,42 +1,66 @@
-import sqlalchemy
-from sqlalchemy import create_engine
-from sqlalchemy import select
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
+# import sqlalchemy
+# from sqlalchemy import create_engine
+# from sqlalchemy import select
+# from sqlalchemy.orm import DeclarativeBase
+# from sqlalchemy.orm import Mapped
+# from sqlalchemy.orm import mapped_column
 #import google.auth
 #from googleapiclient.discovery import build
 #from googleapiclient.errors import HttpError
 import gspread
+import mysql.connector
+from mysql.connector.cursor import MySQLCursor
 #from oa
 
+class DBToSheet:
+    def __init__(self, eventSheet: str):
+        gc = gspread.service_account() # This will connect to a set drive or something
+        self.memberSheet = gc.open("Members") # or whatever it's called
+        self.eventSheet = gc.open(eventSheet)
+    
+    def dbToSheet(self, barcode_id: int):
+    #newRow = [Member.ufid, Member.name, Member.major]
+        row = self.memberSheet.col_values(1).index(barcode_id) + 1
+        member = self.memberSheet.row_values
+        self.eventSheet.append_row(member)
 
-class Base(DeclarativeBase):
-    pass
 
-class Member(Base):
-    __tablename__ = "members"
 
-    barcode_id: Mapped[int] = mapped_column(primary_key=True)
-    ufid: Mapped[int]
-    name: Mapped[str]
-    major: Mapped[str]
 
-    def __repr__(self) -> str:
-        return f"Member(barcode_id={self.barcode_id!r}, ufid={self.ufid!r}, name={self.name!r}, major={self.major!r})"
+# class Member():
+#     barcode_id: int
+#     ufid: int
+#     name: str
+#     major: str
 
-def AcquireFromDB(barcode_id: int, e: sqlalchemy.Engine) -> Member:
-    #session = Session
-    toAdd = select(Member).where(Member.barcode_id == barcode_id)
-    return toAdd
+# def AcquireFromDB(barcode_id: int, cursor: MySQLCursor) -> list:
+#     query = "SELECT * FROM members WHERE barcode_id = %s"
+#     cursor.execute(query, [barcode_id])
+#     toAdd = cursor.fetchone()
+#     return list(toAdd)
 
-def AddToSheet(member: Member, sheet: gspread.Worksheet):
-    newRow = [Member.ufid, Member.name, Member.major]
-    sheet.append_row(newRow)
 
-def main():
-    engine = create_engine("")
-    Base.metadata.create_all(engine)
+
+# def main():
+    # db = mysql.connector.connect(
+    #     host = "localhost",
+    #     user = "root",
+    #     password = "sase-test",
+    #     database = "members"
+    # )
+    # cursor = db.cursor()
+    
+    # testList = AcquireFromDB(0, cursor)
+    # print(testList)
+
+def __init__():
+    gc = gspread.service_account() # This will connect to a set drive or something
+
+
+
+# if __name__ == "__main__":
+#     main()
+
 
 
 
