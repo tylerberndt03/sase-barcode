@@ -18,7 +18,7 @@ def scanBarcode():
         ret, img = cam.read()
         #cv2.imshow("img", img)
         barcode = zxingcpp.read_barcodes(img)
-        print(barcode)
+        print(barcode[0].text if len(barcode) > 0 else "none found") 
         barcode = getBarcode.get()
         try:
             row = memberSheet.col_values(1).index(barcode) + 1
