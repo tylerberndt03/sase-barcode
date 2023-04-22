@@ -43,9 +43,9 @@ if __name__ == "__main__":
     #Tescv2.imshow("img", img)
 
     window = tk.Tk()
-    captureImg = tk.Button(text="Scan", command=scanBarcode)
+    captureImg = tk.Button(text="Scan", command=scanBarcode, justify="left") #fg="#7dc242")
     status = tk.StringVar(value="Waiting")
-    statusLabel = tk.Label(textvariable=status)
+    statusLabel = tk.Label(textvariable=status,font=("Lucida Sans", 50), height=20, width=300, relief="raised", bg="#7dc242", fg="white")
     captureImg.pack()
     statusLabel.pack()
 
