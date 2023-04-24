@@ -21,21 +21,21 @@ def scanBarcode():
         print(barcode[0].text if len(barcode) > 0 else "none found") 
         barcode = getBarcode.get()
         try:
-            row = memberSheet.col_values(1).index(barcode) + 1
+            row = memberSheet.col_values(2).index(barcode) + 1
         except ValueError:
             print("No info found")
             status.set(barcode + ":\nNo info found")
         else:
             member = memberSheet.row_values(row)
-            print("Info found: " + member[1])
-            status.set(":\nInfo found: " + member[1])
+            print("Info found: " + member[2])
+            status.set(barcode + ":\nInfo found: " + member[2])
             eventSheet.append_row(member)
 
 if __name__ == "__main__":
     eventSheetN = input("Event Sheet Name:")
 
-    gc = gspread.service_account() # This will connect to a set drive or something
-    memberSheet = gc.open("Members").get_worksheet(0) # or whatever it's called
+    gc = gspread.service_account() # This will connect to a set drive 
+    memberSheet = gc.open("Members").get_worksheet(0)
     eventSheet = gc.open(eventSheetN).get_worksheet(0)
 
     cam = cv2.VideoCapture(0)
@@ -45,11 +45,11 @@ if __name__ == "__main__":
     window = tk.Tk()
     captureImg = tk.Button(text="Scan", command=scanBarcode, justify="left") #fg="#7dc242")
     status = tk.StringVar(value="Waiting")
-    statusLabel = tk.Label(textvariable=status,font=("Lucida Sans", 50), height=20, width=300, relief="raised", bg="#7dc242", fg="white")
+    statusLabel = tk.Label(textvariable=status,font=("Lucida Sans", 50), height=9, width=300, relief="raised", bg="#7dc242", fg="white")
     captureImg.pack()
     statusLabel.pack()
 
-    getBarcode = tk.Entry()
+    getBarcode = tk.Entry(justify="left")
     getBarcode.pack()
 
     window.mainloop()

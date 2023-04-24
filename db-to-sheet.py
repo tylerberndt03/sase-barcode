@@ -12,6 +12,8 @@ import mysql.connector
 from mysql.connector.cursor import MySQLCursor
 #from oa
 
+# DEPRECATED
+
 class DBToSheet:
     def __init__(self, eventSheet: str):
         gc = gspread.service_account() # This will connect to a set drive or something
