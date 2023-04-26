@@ -21,7 +21,7 @@ def scanBarcode():
         print(barcode[0].text if len(barcode) > 0 else "none found") 
         barcode = getBarcode.get()
         try:
-            row = memberSheet.col_values(2).index(barcode) + 1
+            row = memberSheet.col_values(1).index(barcode) + 1
         except ValueError:
             print("No info found")
             status.set(barcode + ":\nNo info found")
