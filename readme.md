@@ -16,6 +16,6 @@ Navigate here: https://console.cloud.google.com/ and follow these steps.
 
 7. You just downloaded a file. Go to %APPDATA%/gspread (make this directory if it doesn't exist) and rename it service_account.json.
 
-To make this script work, there needs to be a "Members" spreadsheet containing member info for SASE members. This spreadsheet and the target spreadsheet have to be connected to the service account; find the email on the Credentials page and share the spreadsheet with that email as you would any other.
+To make this script work, there needs to be a "Members" spreadsheet containing member info for SASE members, with the UFID in the first column. This spreadsheet and the target spreadsheet have to be connected to the service account; find the email on the Credentials page and share the spreadsheet with that email as you would any other.
 
 When the script starts, type in the name of the target spreadsheet.
